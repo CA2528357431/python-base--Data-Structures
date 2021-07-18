@@ -57,10 +57,6 @@ class link:
 
         if num == 0:
             self.head = self.head.nextid
-        elif num == self._size:
-            current = self.get(num - 1)
-            current.nextid = None
-
         else:
             current = self.get(num - 1)
             current.nextid = current.nextid.nextid
@@ -163,7 +159,7 @@ print(ex.get(2).data)
 
 
 
-ex.pop(1)
+ex.pop(5)
 for x in ex:
     print(x.data)
 

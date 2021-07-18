@@ -1,16 +1,30 @@
-# This is a sample Python script.
+# stack-list
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# first in last out
 
+class stack:
+    def __init__(self):
+        self.data = []
+    def push(self,x):
+        self.data.append(x)
+    def pop(self):
+        x = self.data[len(self.data)-1]
+        self.data.pop()
+        return x
+    def top(self):
+        return self.data[len(self.data)-1]
+    def empty(self):
+        if self.data:
+            return False
+        else:
+            return True
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+sta = stack()
 
+sta.push(1)
+sta.push("helo")
+sta.push([9377,True])
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+print(sta.empty())
+print(sta.pop())
+print(sta.top())
