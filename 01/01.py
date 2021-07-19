@@ -1,5 +1,7 @@
 # 链表
 
+# 进阶链表在 14 15 16
+
 class linkpoint:
     def __init__(self, data, nextid=None):
         self.nextid = nextid
@@ -12,6 +14,7 @@ class link:
         self.head: linkpoint = None
         self.current: linkpoint = None
         self.last = False
+
     def __iter__(self):
         self.current = self.head
         return self

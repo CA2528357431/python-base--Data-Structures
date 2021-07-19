@@ -2,6 +2,9 @@
 
 # first in last out
 
+# add和pop慢 15中有改进
+# 实际上是对链表的优化
+
 class node:
     def __init__(self, data):
         self.nextid = None
@@ -31,9 +34,12 @@ class link:
         self.size += 1
 
     def pop(self):
-        current = self.get(self.size - 2)
-        current.nextid = None
-        self.size -= 1
+        if self.size>1:
+            current = self.get(self.size - 2)
+            current.nextid = None
+            self.size -= 1
+        else:
+            self.head = None
 
 
 class stack:
