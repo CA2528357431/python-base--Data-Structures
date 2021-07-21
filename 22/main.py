@@ -69,6 +69,21 @@ class tree:
                     queue.append(x)
         return res
 
+    def solute(self):
+        if self.right is not None and self.right is not None:
+            l = self.left.solute()
+            r = self.right.solute()
+            if self.root == "+":
+                return l + r
+            if self.root == "-":
+                return l - r
+            if self.root == "*":
+                return l * r
+            if self.root == "/":
+                return l / r
+        else:
+            num = float(self.root)
+            return num
 
 class stack:
     def __init__(self):
@@ -163,3 +178,7 @@ def swap(tar):
 tar = "( a + ( b + c ) * d ) - e"
 res = swap(tar)
 print(res)
+
+tar = "( 1 + ( 2 + 3 ) * 4 ) - 5"
+res = swap(tar)
+print(res.solute())
