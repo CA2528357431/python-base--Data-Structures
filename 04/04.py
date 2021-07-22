@@ -35,7 +35,7 @@ def do(tar, che):
 
 
 tar = "abcdefghijklmn"
-che = "bced"
+che = "bcd"
 li = do(tar, che)
 print(li)
 
