@@ -37,6 +37,19 @@ class tree:
 
         return res
 
+    '''
+    def first(self):
+        res = []
+        cur = self
+        def do(cur):
+            if cur is not None:
+                res.append(cur.root)
+                do(cur.left)
+                do(cur.right)
+        do(cur)
+        return res
+    '''
+
 
 
     def middle(self):
@@ -50,6 +63,19 @@ class tree:
 
         return res
 
+    '''
+    def middle(self):
+        res = []
+        cur = self
+        def do(cur):
+            if cur is not None:
+                do(cur.left)
+                res.append(cur.root)
+                do(cur.right)
+        do(cur)
+        return res
+    '''
+
     def last(self):
         l = []
         r = []
@@ -60,6 +86,19 @@ class tree:
         res =  l + r + [self.root]
 
         return res
+
+    '''
+    def last(self):
+        res = []
+        cur = self
+        def do(cur):
+            if cur is not None:
+                do(cur.left)
+                do(cur.right)
+                res.append(cur.root)
+        do(cur)
+        return res
+    '''
 
     # 一种广度优先遍历
 

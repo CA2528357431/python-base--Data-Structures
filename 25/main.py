@@ -94,7 +94,7 @@ class heap:
             x = self.pop()
             res.append(x.data)
         return res
-    # 多次弹出头元素
+    # 多次弹出 头元素 ,即最小元素
 
 
 pri = heap()

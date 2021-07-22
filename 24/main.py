@@ -43,38 +43,42 @@ class heap:
 
 
     def pop(self):
-        dele = self.data[0]
-        mid = self.data.pop()
-        self.data[0] = mid
-        i = 0
-        l = 2 * i + 1
-        r = 2 * i + 2
-        while l < len(self.data):
-            if r < len(self.data):
-                left = self.data[l]
-                right = self.data[r]
-                if mid.prior < left.prior or mid.prior < right.prior:
-                    if left.prior > right.prior:
+        if len(self.data)>1:
+            dele = self.data[0]
+            mid = self.data.pop()
+            self.data[0] = mid
+            i = 0
+            l = 2 * i + 1
+            r = 2 * i + 2
+            while l < len(self.data):
+                if r < len(self.data):
+                    left = self.data[l]
+                    right = self.data[r]
+                    if mid.prior < left.prior or mid.prior < right.prior:
+                        if left.prior > right.prior:
+                            self.data[i] = left
+                            self.data[l] = mid
+                            i = l
+                        else:
+                            self.data[i] = right
+                            self.data[r] = mid
+                            i = r
+                        r = 2 * i + 2
+                        l = 2 * i + 1
+                    else:
+                        break
+
+                else:
+                    left = self.data[l]
+                    if mid.prior < left.prior:
                         self.data[i] = left
                         self.data[l] = mid
-                        i = l
+                        break
                     else:
-                        self.data[i] = right
-                        self.data[r] = mid
-                        i = r
-                    r = 2 * i + 2
-                    l = 2 * i + 1
-                else:
-                    break
-
-            else:
-                left = self.data[l]
-                if mid.prior < left.prior:
-                    self.data[i] = left
-                    self.data[l] = mid
-                    break
-                else:
-                    break
+                        break
+        else:
+            dele = self.data[0]
+            self.data.pop()
 
         return dele
 
