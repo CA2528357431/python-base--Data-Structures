@@ -4,6 +4,7 @@
 
 
 class stack:
+
     def __init__(self):
         self.data = []
 
@@ -24,8 +25,8 @@ class stack:
         else:
             return True
 
-def do (lang:str):
 
+def do(lang: str):
     itens = lang.split(" ")
     sta = stack()
 
@@ -50,9 +51,9 @@ def do (lang:str):
         else:
             sta.push(float(x))
 
-
     res = sta.pop()
     return res
+
 
 lang = "5 1 2 + 4 * + 3 -"
 res = do(lang)

@@ -21,24 +21,20 @@ class stack:
         else:
             return True
 
+
 def do(lang):
     sta = stack()
     result = []
-    for x in range(0,len(lang)):
+    for x in range(0, len(lang)):
         if lang[x] == "(":
             sta.push(x)
         elif lang[x] == ")" and sta.empty() == False:
             print(x)
-            tup = (sta.pop(),x)
+            tup = (sta.pop(), x)
             result.append(tup)
     return result
+
 
 lang = "()1984 (good(and)fiction(where to (go) 6.4) op)   )(asd(o)"
 res = do(lang)
 print(res)
-
-
-
-
-
-

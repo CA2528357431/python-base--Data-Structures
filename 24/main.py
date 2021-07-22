@@ -43,16 +43,16 @@ class heap:
 
 
     def pop(self):
-        dele = self.data.pop()
-        mid = dele
+        dele = self.data[0]
+        mid = self.data.pop()
         self.data[0] = mid
         i = 0
         l = 2 * i + 1
         r = 2 * i + 2
-        left = self.data[l]
-        right = self.data[r]
         while l < len(self.data):
             if r < len(self.data):
+                left = self.data[l]
+                right = self.data[r]
                 if mid.prior < left.prior or mid.prior < right.prior:
                     if left.prior > right.prior:
                         self.data[i] = left
@@ -64,17 +64,15 @@ class heap:
                         i = r
                     r = 2 * i + 2
                     l = 2 * i + 1
-                    if r < len(self.data):
-                        right = self.data[r]
-                    if l < len(self.data):
-                        left = self.data[l]
                 else:
                     break
 
             else:
+                left = self.data[l]
                 if mid.prior < left.prior:
                     self.data[i] = left
                     self.data[l] = mid
+                    break
                 else:
                     break
 
@@ -89,6 +87,7 @@ class heap:
 
 
 pri = heap()
+
 a = node(5, 5)
 b = node(3, 3)
 c = node(4, 4)
@@ -96,6 +95,7 @@ d = node(1, 1)
 e = node(2, 2)
 f = node(0, 0)
 g = node(9, 9)
+
 pri.add(a)
 pri.add(b)
 pri.add(c)
@@ -103,7 +103,10 @@ pri.add(d)
 pri.add(e)
 pri.add(f)
 print(pri)
+
 pri.add(g)
 print(pri)
-pri.pop()
+
+x = pri.pop()
 print(pri)
+print(x.data)
