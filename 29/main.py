@@ -1,11 +1,28 @@
-# 堆排序
+# Huffman Tree
 
-# 用于“需要极值”但不需要整体排序
+class tree:
 
-class node:
-    def __init__(self, data):
-        self.data = data
+    def __init__(self, root, left=None, right=None):
+        self.root = root
+        self.left = left
+        self.right = right
 
+    @property
+    def lisp(self):
+        lisp = [self.root, None, None]
+        if self.left is not None:
+            lisp[1] = self.left.lisp
+        if self.right is not None:
+            lisp[2] = self.right.lisp
+        return lisp
+        # lisp 表达法
+
+    def __str__(self):
+        return str(self.lisp)
+
+
+# 用堆来存储数据
+# 只需要最小，不需要排序
 
 class heap:
 
@@ -15,7 +32,7 @@ class heap:
     def __str__(self):
         res = []
         for x in self.data:
-            res.append(x.data)
+            res.append(x.root)
         return str(res)
 
     def empty(self):
@@ -30,7 +47,7 @@ class heap:
         i = (j - 1) // 2
         so = self.data[j]
         fa = self.data[i]
-        while i >= 0 and fa.data > so.data:
+        while i >= 0 and fa.root > so.root:
             self.data[i] = so
             self.data[j] = fa
             j = i
@@ -43,8 +60,7 @@ class heap:
 
     def pop(self):
 
-
-        if len(self.data)>1:
+        if len(self.data) > 1:
             dele = self.data[0]
             mid = self.data.pop()
             self.data[0] = mid
@@ -55,8 +71,8 @@ class heap:
                 if r < len(self.data):
                     left = self.data[l]
                     right = self.data[r]
-                    if mid.data > left.data or mid.data > right.data:
-                        if left.data < right.data:
+                    if mid.root > left.root or mid.root > right.root:
+                        if left.root < right.root:
                             self.data[i] = left
                             self.data[l] = mid
                             i = l
@@ -75,7 +91,7 @@ class heap:
 
                 else:
                     left = self.data[l]
-                    if mid.data > left.data:
+                    if mid.root > left.root:
                         self.data[i] = left
                         self.data[l] = mid
                         break
@@ -90,33 +106,20 @@ class heap:
     def top(self):
         return self.data[0]
 
-    def sort(self):
-        res = []
-        while self.data:
-            x = self.pop()
-            res.append(x.data)
-        return res
-    # 多次弹出 头元素 ,即最小元素
+
+def do(data: list):
+    li = heap()
+    for x in data:
+        y = tree(x)
+        li.add(y)
+    while len(li.data) > 1:
+        x = li.pop()
+        y = li.pop()
+        temp = tree(x.root + y.root, x, y)
+        li.add(temp)
+    return li.top()
 
 
-pri = heap()
-
-a = node(5)
-b = node(3)
-c = node(4)
-d = node(1)
-e = node(2)
-f = node(0)
-g = node(9)
-
-pri.add(a)
-pri.add(b)
-pri.add(c)
-pri.add(d)
-pri.add(e)
-pri.add(f)
-pri.add(g)
-
-res = pri.sort()
+li = [7, 4, 2, 5]
+res = do(li)
 print(res)
-

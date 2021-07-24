@@ -1,5 +1,6 @@
 # Huffman Tree
 
+
 class tree:
 
     def __init__(self, root, left=None, right=None):
