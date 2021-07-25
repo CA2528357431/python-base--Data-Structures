@@ -1,10 +1,15 @@
-# 邻接表表示有向图
+# 由关系遍历
+# 以有向图为例
 
-# 对于每个点，记录下其出边
+# 虽然我们可以通过graph的node属性很容易的遍历mode
+# 但事实上，我们往往需要通过“关系”来遍历
 
 class graph:
     def __init__(self, collect):
         self.collect = collect
+
+        for x in self.collect:
+            self.node.append(x)
 
     def __str__(self):
         res = ""
@@ -76,68 +81,66 @@ class graph:
     def removenode(self, node):
         self.collect.pop(node)
         for fnode in self.collect:
-
-            '''
-            for lnode in self.collect[fnode]:
-                if lnode == node:
-                    self.collect[fnode].remove(lnode)
-            '''
-            for i in range(len(self.collect[fnode])-1, -1, -1):
+            # 以下是一个比 多次remove 更好的算法
+            for i in range(len(self.collect[fnode]) - 1, -1, -1):
                 if self.collect[fnode][i] == node:
                     self.collect[fnode].pop(i)
-            # 倒叙删除可以不影响“未检查”部分的index
+
+    def dfs(self):
+        node = self.node.copy()
+        res = []
+
+        def do(head):
+            node.remove(head)
+            res.append(head)
+            li = self.collect[head]
+
+            for tail in li:
+                if tail in node:
+                    do(tail)
+
+        while node:
+            head = node[0]
+            do(head)
+        return res
+
+    def bfs(self):
+        node = self.node.copy()
+        res = []
+        while node:
+
+            queue = [node[0]]
+
+            while queue:
+                cur = queue.pop(0)
+
+                res.append(cur)
+                node.remove(cur)
+
+                li = self.collect[cur]
+                for tail in li:
+                    if (tail in node) and (tail not in queue):
+                        queue.append(tail)
+
+        return res
 
 
 
-
-# 有向图 7.3 G5
+# 有权图 7.5 G7
 collect = {
-    "a":["c"],
-    "b":["a", "c"],
-    "c":["b"]
+    "a": ["c", "d"],
+    "b": ["a", "c", "f"],
+    "c": ["b", "e"],
+    "d": ["e"],
+    "e": ["g"],
+    "f": ["g"],
+    "g": []
 }
-
 gra = graph(collect)
 
-print(gra.edge)
-print("-------")
-print(gra)
-print("----")
+dfs = gra.dfs()
+print(dfs)
 print()
 
-degree = gra.degree("b")
-indegree = gra.indegree("b")
-outdegree = gra.outdegree("b")
-print(degree, indegree, outdegree)
-print()
-
-egde = gra.edgesofnode("b")
-inedge = gra.inedgesofnode("b")
-outedge = gra.outedgesofnode("b")
-print(egde, inedge, outedge)
-print()
-
-gra.addedge("c","a")
-print("-------")
-print(gra)
-print("----")
-print(gra.edge)
-print()
-
-gra.removeedge("c","a")
-print("-------")
-print(gra)
-print("----")
-print()
-
-gra.removenode("c")
-print("-------")
-print(gra)
-print("----")
-print()
-
-gra.addnode("c")
-print("-------")
-print(gra)
-print("----")
-print()
+bfs = gra.bfs()
+print(bfs)

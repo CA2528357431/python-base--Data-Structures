@@ -17,6 +17,13 @@ class graph:
         return res
 
     @property
+    def node(self):
+        res = []
+        for x in self.collect:
+            res.append(x)
+        return res
+
+    @property
     def edge(self):
         edge = []
         for fnode in self.collect:
