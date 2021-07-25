@@ -1,7 +1,7 @@
 # 邻接矩阵表示有向加权图
 
 # 点太多会有大量空白数据
-
+# 不能增加点
 
 class graph:
     def __init__(self, name, square):
@@ -69,6 +69,11 @@ class graph:
         x = self.node.index(p2)
         self.square[y][x] = weight
 
+    def removeedge(self, p1, p2):
+        y = self.node.index(p1)
+        x = self.node.index(p2)
+        self.square[y][x] = 0
+
 
 # 有权图 7.5 G7
 
@@ -107,4 +112,8 @@ print(gra)
 print()
 
 gra.addedge("f", "a", 24)
+print(gra)
+print()
+
+gra.removeedge("f", "a")
 print(gra)

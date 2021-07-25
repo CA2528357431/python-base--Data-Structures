@@ -1,6 +1,7 @@
 # 邻接矩阵表示有向图
 
 # 点太多会有大量空白数据
+# 不能增加点
 
 
 class graph:
@@ -69,6 +70,11 @@ class graph:
         x = self.node.index(p2)
         self.square[y][x] = 1
 
+    def removeedge(self, p1, p2):
+        y = self.node.index(p1)
+        x = self.node.index(p2)
+        self.square[y][x] = 0
+
 
 
 # 有向图 7.3 G5
@@ -104,3 +110,7 @@ print()
 gra.addedge("c","a")
 print(gra)
 print(gra.edge)
+print()
+
+gra.removeedge("c","a")
+print(gra)
