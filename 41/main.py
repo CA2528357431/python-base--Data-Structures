@@ -1,6 +1,6 @@
-# 邻接表表示有向图
+# 邻接表表示无向图
 
-# 对于每个点，记录下其出边
+# 对于每个点，记录下其出边和权
 
 class graph:
     def __init__(self, collect):
@@ -10,7 +10,7 @@ class graph:
         res = ""
         for fnode in self.collect:
             for lnode in self.collect[fnode]:
-                l = lnode.ljust(4)
+                l = str(lnode).ljust(14)
                 res += l
             res += "\n"
         res = res[:-1]
@@ -20,28 +20,28 @@ class graph:
     def edge(self):
         edge = []
         for fnode in self.collect:
-            for lnode in self.collect[fnode]:
-                edge.append((fnode, lnode))
+            for data in self.collect[fnode]:
+                edge.append(((fnode, data[0]), data[1]))
         return edge
 
     def edgesofnode(self, node):
         res = []
         for edge in self.edge:
-            if node in edge:
+            if node in edge[0]:
                 res.append(edge)
         return res
 
     def inedgesofnode(self, node):
         res = []
         for edge in self.edge:
-            if node == edge[1]:
+            if node == edge[0][1]:
                 res.append(edge)
         return res
 
     def outedgesofnode(self, node):
         res = []
         for edge in self.edge:
-            if node == edge[0]:
+            if node == edge[0][0]:
                 res.append(edge)
         return res
 
@@ -57,11 +57,13 @@ class graph:
         res = self.outedgesofnode(node)
         return len(res)
 
-    def addedge(self, p1, p2):
-        self.collect[p1].append(p2)
+    def addedge(self, p1, p2, weight):
+        self.collect[p1].append((p2, weight))
 
     def removeedge(self, p1, p2):
-        self.collect[p1].remove(p2)
+        for x in self.collect[p1]:
+            if p2 == x[0]:
+                self.collect[p1].remove(x)
 
     def addnode(self, node):
         self.collect[node] = []
@@ -69,33 +71,25 @@ class graph:
     def removenode(self, node):
         self.collect.pop(node)
         for fnode in self.collect:
-
-            '''
-            for lnode in self.collect[fnode]:
-                if lnode == node:
-                    self.collect[fnode].remove(lnode)
-            '''
             for i in range(len(self.collect[fnode])-1, -1, -1):
-                if self.collect[fnode][i] == node:
+                if self.collect[fnode][i][0] == node:
                     self.collect[fnode].pop(i)
-            # 倒叙删除可以不影响“未检查”部分的index
 
+# 有权图 7.5 G7
 
-
-
-# 有向图 7.3 G5
 collect = {
-    "a":["c"],
-    "b":["a", "c"],
-    "c":["b"]
+    "a":[("c", 3), ("d", 6)],
+    "b":[("a", 11), ("c", 4), ("f", 7)],
+    "c":[("b", 3), ("e", 5)],
+    "d":[("e", 5)],
+    "e":[("g", 9)],
+    "f":[("g", 10)],
+    "g":[]
 }
 
 gra = graph(collect)
 
 print(gra.edge)
-print("-------")
-print(gra)
-print("----")
 print()
 
 degree = gra.degree("b")
@@ -110,27 +104,30 @@ outedge = gra.outedgesofnode("b")
 print(egde, inedge, outedge)
 print()
 
-gra.addedge("c","a")
-print("-------")
+print("-----")
 print(gra)
-print("----")
-print(gra.edge)
+print("---")
 print()
 
-gra.removeedge("c","a")
-print("-------")
+gra.addedge("f", "a", 24)
+print("-----")
 print(gra)
-print("----")
+print("---")
+print()
+
+gra.removeedge("f", "a")
+print("-----")
+print(gra)
+print("---")
 print()
 
 gra.removenode("c")
-print("-------")
+print("-----")
 print(gra)
-print("----")
+print("---")
 print()
 
 gra.addnode("c")
-print("-------")
+print("-----")
 print(gra)
-print("----")
-print()
+print("---")
