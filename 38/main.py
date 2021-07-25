@@ -8,6 +8,17 @@ class graph:
         self.node = name
         self.square = square
 
+    def __str__(self):
+        res = ""
+        for x in square:
+            for y in x:
+                yy = str(y)
+                yyy = yy.ljust(4)
+                res += yyy
+            res += "\n"
+        res = res.rstrip()
+        return res
+
     @property
     def edge(self):
         edge = []
@@ -53,6 +64,11 @@ class graph:
         res = self.outedgesofnode(node)
         return len(res)
 
+    def addedge(self, p1, p2, weight):
+        y = self.node.index(p1)
+        x = self.node.index(p2)
+        self.square[y][x] = weight
+
 
 # 有权图 7.5 G7
 
@@ -73,13 +89,22 @@ name = ["a", "b", "c", "d", "e", "f", "g"]
 gra = graph(name,square)
 
 print(gra.edge)
+print()
 
 degree = gra.degree("b")
 indegree = gra.indegree("b")
 outdegree = gra.outdegree("b")
 print(degree, indegree, outdegree)
+print()
 
 egde = gra.edgesofnode("b")
 inedge = gra.inedgesofnode("b")
 outedge = gra.outedgesofnode("b")
 print(egde, inedge, outedge)
+print()
+
+print(gra)
+print()
+
+gra.addedge("f", "a", 24)
+print(gra)
