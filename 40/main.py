@@ -7,13 +7,14 @@ class graph:
         self.collect = collect
 
     def __str__(self):
-        res = ""
+        reli = []
         for fnode in self.collect:
+            re = ""
             for lnode in self.collect[fnode]:
                 l = lnode.ljust(4)
-                res += l
-            res += "\n"
-        res = res[:-1]
+                re += l
+            reli.append(re)
+        res = "\n".join(reli)
         return res
 
     @property

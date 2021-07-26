@@ -1,4 +1,4 @@
-# 邻接表表示无向图
+# 邻接表表示有向有权图
 
 # 对于每个点，记录下其出边和权
 
@@ -7,13 +7,14 @@ class graph:
         self.collect = collect
 
     def __str__(self):
-        res = ""
+        reli = []
         for fnode in self.collect:
-            for lnode in self.collect[fnode]:
-                l = str(lnode).ljust(14)
-                res += l
-            res += "\n"
-        res = res[:-1]
+            re = ""
+            for (lnode,weight) in self.collect[fnode]:
+                l = str(((fnode, lnode),weight)).ljust(24)
+                re += l
+            reli.append(re)
+        res = "\n".join(reli)
         return res
 
     @property
@@ -27,8 +28,8 @@ class graph:
     def edge(self):
         edge = []
         for fnode in self.collect:
-            for data in self.collect[fnode]:
-                edge.append(((fnode, data[0]), data[1]))
+            for (lnode, weight) in self.collect[fnode]:
+                edge.append(((fnode, lnode), weight))
         return edge
 
     def edgesofnode(self, node):

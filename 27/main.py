@@ -23,10 +23,6 @@ class tree:
     def __str__(self):
         return str(self.lisp)
 
-    # 三种深度优先遍历
-    # 即三种周游
-    # 周游一定是 根、左周游、右周游的组合
-
     def first(self):
         stack = []
         cur = self
@@ -38,7 +34,8 @@ class tree:
                 res.append(cur.root)
                 cur = cur.left
             # 开始出栈
-            cur = stack.pop().right
+            if stack:
+                cur = stack.pop().right
 
         return res
 

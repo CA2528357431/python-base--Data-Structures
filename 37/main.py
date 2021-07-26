@@ -10,14 +10,15 @@ class graph:
         self.square = square
 
     def __str__(self):
-        res = ""
+        reli = []
         for x in square:
+            re = ""
             for y in x:
                 yy = str(y)
                 yyy = yy.ljust(4)
-                res += yyy
-            res += "\n"
-        res = res.rstrip()
+                re += yyy
+            reli.append(re)
+        res = "\n".join(reli)
         return res
 
     @property
