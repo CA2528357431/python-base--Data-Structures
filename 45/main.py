@@ -2,11 +2,16 @@
 # 针对网格
 # Kruskal
 
-# bettersolution
+# 废案！！！！！！！！！！！！！！！！！！！ 以后学学并查集吧
+
+# better solution
 
 class graph:
     def __init__(self, collect):
         self.collect = collect
+        self.parent = {}
+        for x in self.node:
+            self.parent[x] = x
 
     def __str__(self):
         reli = []
@@ -68,52 +73,37 @@ class graph:
                 if self.collect[fnode][i][0] == node:
                     self.collect[fnode].pop(i)
 
-    @property
-    def reps(self):
-        self.reps = {}
-        self.reps = {}
-        for x in self.node:
-            self.reps[x] = x
-
+    def find(self, node):
+        if self.parent[node] == node:
+            return node
+        else:
+            return self.find(self.parent[node])
 
     def Kruskal(self):
         neocollect = {}
+
         for x in self.node:
             neocollect[x] = []
         gra = graph(neocollect)
 
-        used = []
-
         edges = self.edge.copy()
         edges.sort(key=lambda x: x[1])
 
+        i = 0
         for edge in edges:
             fnode = edge[0][0]
             lnode = edge[0][1]
             weight = edge[1]
-            if fnode in used and lnode in used:
-                continue
-            elif fnode in used:
-                used.append(lnode)
-                gra.addedge(fnode, lnode, weight)
-            elif lnode in used:
-                used.append(fnode)
-                gra.addedge(fnode, lnode, weight)
-            else:
-                used.append(lnode)
-                used.append(fnode)
-                gra.addedge(fnode, lnode, weight)
 
-        while len(gra.connect) > 1:
-            for edge in edges:
-                fnode = edge[0][0]
-                lnode = edge[0][1]
-                weight = edge[1]
-                if (fnode in gra.connect[0] and lnode in gra.connect[1]) or (
-                        fnode in gra.connect[1] and lnode in gra.connect[0]):
-                    gra.addedge(fnode, lnode, weight)
-                    break
+            print(gra.parent)
+            print(edge)
 
+            if gra.find(fnode) != gra.find(lnode):
+                gra.addedge(fnode, lnode, weight)
+                gra.parent[lnode] = fnode
+                i += 1
+            if i == len(self.node)-1:
+                break
         return gra
 
 
@@ -129,9 +119,7 @@ collect = {
     "g": [("b", 7), ("d", 20), ("e", 8), ("f", 8)]
 }
 
-gra = graph(collect)
 
-neogra = gra.Kruskal()
-print(neogra.edge)
-print(neogra)
-print(neogra.connect)
+gra = graph(collect)
+neo = gra.Kruskal()
+print(neo)
