@@ -10,7 +10,7 @@ class graph:
 
     def __str__(self):
         reli = []
-        for x in square:
+        for x in self.square:
             re = ""
             for y in x:
                 yy = str(y)

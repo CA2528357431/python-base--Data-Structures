@@ -3,7 +3,7 @@
 # 有向加权图
 # 权重为正
 
-# 顶点到其他点最短路径
+# 一点到其他点最短路径
 
 class graph:
     def __init__(self, collect):
@@ -91,9 +91,7 @@ def dijkstra(gra: graph, dic: dict):
     edges = []
     for node in dic:
         neoedges = gra.outedgesofnode(node)
-        for edge in neoedges:
-            if edge[0][1] not in dic:
-                edges.append(edge)
+        edges.extend(neoedges)
     for edge in edges:
         fnode = edge[0][0]
         lnode = edge[0][1]
