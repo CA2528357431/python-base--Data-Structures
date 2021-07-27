@@ -134,6 +134,12 @@ class graph:
         return gra
 
 
+def aov(gra:graph):
+    res = []
+
+
+
+
 
 # 有权图 7.9 G9
 
@@ -150,6 +156,3 @@ collect = {
 gra = graph(collect)
 
 neogra = gra.Kruskal()
-print(neogra.edge)
-print(neogra)
-print(neogra.connect)
