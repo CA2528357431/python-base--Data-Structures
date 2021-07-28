@@ -2,7 +2,7 @@
 
 # 通过编写散列函数，将key映射到index上，从而实现快速修改
 # 需要提前开一个list充满none作为物理容器，使得增加、删除快速
-
+# 不可否认的是，有时不同key会对应不同index
 
 
 """
@@ -35,6 +35,10 @@ class mydic:
         re = [str(x) for x in self.alldata if x is not None]
         res = "{\n" + ",\n".join(re) + "\n}"
         return res
+
+    def __contains__(self, key):
+        index = hash(key)
+        return self.alldata[index] is not None
 
     @property
     def size(self):
@@ -80,3 +84,7 @@ print()
 re1 = dic.seek("old")
 re2 = dic.seek("neo")
 print(re1, re2)
+print()
+
+print("neo" in dic)
+

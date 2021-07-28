@@ -21,6 +21,9 @@ class mydic:
         res = "{\n" + ",\n".join(re) + "\n}"
         return res
 
+    def __contains__(self, key):
+        return key in self.alldata
+
     @property
     def size(self):
         return len(self.alldata)
@@ -50,7 +53,6 @@ class mydic:
         for x in self.alldata:
             if x.key == key:
                 return x.value
-        return None
 
 
 dic = mydic()
@@ -71,3 +73,6 @@ print()
 re1 = dic.seek("old")
 re2 = dic.seek("neo")
 print(re1, re2)
+print()
+
+print("neo" in dic)
