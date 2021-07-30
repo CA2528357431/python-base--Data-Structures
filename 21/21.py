@@ -11,6 +11,12 @@ class tree:
         self.left = left
         self.right = right
 
+        self.data = None
+        # root作为排序依据
+        # data存数据
+
+        # 后续几个二叉树用例就不带数据了
+
     @property
     def lisp(self):
         lisp = [self.root, None, None]

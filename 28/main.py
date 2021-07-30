@@ -9,6 +9,8 @@ class tree:
         self.left = left
         self.right = right
 
+
+
     @property
     def lisp(self):
         lisp = [self.root, None, None]

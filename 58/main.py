@@ -1,18 +1,11 @@
-# 二叉排序树
+# 最佳二叉排序树
 
+# 类似哈夫曼树，不过哈夫曼树中数据都在叶节点中，而最佳二叉树各个节点都有数据
 
-# 此也是一个树的设计
-# 即点和树是分离的
-# 树只保存根
-# 数据、子树在节点中
-
-
-# 若左子树不空，则左子树上所有结点的值均小于它的根结点的值
-# 若右子树不空，则右子树上所有结点的值均大于或等于它的根结点的值
-# 左、右子树也分别为二叉排序树
+# 在通常情况下，使树尽可能平衡即可
 
 class node:
-    def __init__(self, key, data, left=None, right=None):
+    def __init__(self, key, left=None, right=None, data=None):
         self.key = key
         self.left = left
         self.right = right
@@ -48,6 +41,7 @@ class bintree:
                 res.append(str(re[i].key).ljust((5)))
         string = "".join(res)
         return string
+
     @property
     def empty(self):
         return self.root is None
@@ -153,28 +147,27 @@ class bintree:
         return l + [(self.root.key, self.root.data)] + r
 
 
-neo0 = node(13, "hello")
-tre = bintree(neo0)
-neo1 = node(3, "evening")
-tre.add(neo1)
-neo2 = node(16, True)
-tre.add(neo2)
-neo3 = node(6, 97.41)
-tre.add(neo3)
-neo4 = node(10, [1, 5, False])
-tre.add(neo4)
+def perfecttree(keys: list):
+    mid = len(keys) // 2
+    lkeys = keys[:mid]
+    rkeys = keys[mid+1:]
+    root = node(keys[mid])
+    tre = bintree(root)
+    if lkeys:
+        tre.root.left = perfecttree(lkeys).root
+    if rkeys:
+        tre.root.right = perfecttree(rkeys).root
+    return tre
 
-print(tre)
+keys = [1,5,3,9,11,0,23,8]
+keys.sort()
+print(perfecttree(keys))
+
+print()
 print()
 
-print(tre.mid())
-print()
-
-x = tre.search(6)
-print(x)
-y = tre.search(7)
-print(y)
-print()
-
-tre.delete(13)
+tre = bintree()
+keys = [1,5,3,9,11,0,23,8]
+for x in keys:
+    tre.add(node(x))
 print(tre)
