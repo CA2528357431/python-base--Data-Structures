@@ -94,7 +94,9 @@ class bintree:
                 cur = cur.right
 
         if cur is not None:
+            # 能找到key
             if last is None:
+                # 删除根节点
                 par = cur.left
                 parold = cur
                 while par.right is not None:

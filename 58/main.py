@@ -1,8 +1,12 @@
 # 最佳二叉排序树
 
 # 类似哈夫曼树，不过哈夫曼树中数据都在叶节点中，而最佳二叉树各个节点都有数据
+# 完美树在delete、add之后无法保证完美
 
-# 在通常情况下，使树尽可能平衡即可
+
+# 本例，各点，使树尽可能平衡即可
+
+
 
 class node:
     def __init__(self, key, left=None, right=None, data=None):
@@ -168,6 +172,15 @@ print()
 
 tre = bintree()
 keys = [1,5,3,9,11,0,23,8]
+for x in keys:
+    tre.add(node(x))
+print(tre)
+
+print()
+print()
+
+keys.sort()
+tre = bintree()
 for x in keys:
     tre.add(node(x))
 print(tre)

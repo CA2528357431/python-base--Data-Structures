@@ -73,9 +73,7 @@ class heap:
                     if mid.prior < left.prior:
                         self.data[i] = left
                         self.data[l] = mid
-                        break
-                    else:
-                        break
+                    break
         else:
             dele = self.data[0]
             self.data.pop()
